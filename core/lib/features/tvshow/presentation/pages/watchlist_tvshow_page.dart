@@ -14,9 +14,9 @@ class _WatchlistTvShowsPageState extends State<WatchlistTvShowsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tv Show Watchlist'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Tv Show Watchlist'),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<AllWatchlistTvShowsBloc, WatchlistTvShowsState>(
@@ -26,13 +26,17 @@ class _WatchlistTvShowsPageState extends State<WatchlistTvShowsPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is WatchlistTvShowsLoaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvShow = state.tvShow[index];
-                  return TvShowCard(tvShow);
-                },
-                itemCount: state.tvShow.length,
-              );
+              return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      childAspectRatio: 3 / 5,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8),
+                  itemCount: state.tvShow.length,
+                  itemBuilder: (context, index) {
+                    final tvShow = state.tvShow[index];
+                    return TvShowCard(tvShow);
+                  });
             } else if (state is WatchlistTvShowsFailed) {
               return Center(
                 key: const Key('error_message'),

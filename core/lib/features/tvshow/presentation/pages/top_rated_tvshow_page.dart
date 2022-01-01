@@ -34,13 +34,25 @@ class _TopRatedTvShowsPageState extends State<TopRatedTvShowsPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is TopRatedTvShowsLoaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvShow = state.tvShows[index];
-                  return TvShowCard(tvShow);
-                },
-                itemCount: state.tvShows.length,
-              );
+              return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      childAspectRatio: 3 / 5,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8),
+                  itemCount: state.tvShows.length,
+                  itemBuilder: (context, index) {
+                    final tvShow = state.tvShows[index];
+                    return TvShowCard(tvShow);
+                  });
+              // return GridView.count(
+              //   crossAxisCount: 2,
+              //   children: List.generate(state.tvShows.length, (index) {
+              //     final tvShow = state.tvShows[index];
+              //     return TvShowCard(tvShow);
+              //   }),
+              //   // itemCount: state.tvShows.length,
+              // );
             } else if (state is TopRatedTvShowsFailed) {
               return Center(
                 key: Key('error_message'),

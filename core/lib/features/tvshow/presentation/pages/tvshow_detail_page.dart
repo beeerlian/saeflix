@@ -72,6 +72,7 @@ class TvShowDetailContent extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
+            minChildSize: 0.5,
             builder: (context, scrollController) {
               return Container(
                 decoration: const BoxDecoration(
@@ -257,9 +258,8 @@ class TvShowDetailContent extends StatelessWidget {
                 ),
               );
             },
-            // initialChildSize: 0.5,
-            minChildSize: 0.25,
-            // maxChildSize: 1.0,
+            initialChildSize: 0.5,
+            maxChildSize: 1.0,
           ),
         ),
         Padding(

@@ -34,13 +34,18 @@ class _PopularTvShowsPageState extends State<PopularTvShowsPage> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is PopularTvShowsLoaded) {
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    final movie = state.movies[index];
-                    return TvShowCard(movie);
-                  },
-                  itemCount: state.movies.length,
-                );
+                return GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 150,
+                            childAspectRatio: 3 / 5,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8),
+                    itemCount: state.movies.length,
+                    itemBuilder: (context, index) {
+                      final tvShow = state.movies[index];
+                      return TvShowCard(tvShow);
+                    });
               } else if (state is PopularTvShowsFailed) {
                 return Center(
                   key: Key('error_message'),

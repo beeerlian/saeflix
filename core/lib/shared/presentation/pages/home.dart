@@ -20,9 +20,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-
+  late TabController controller;
   @override
   void initState() {
     super.initState();
@@ -39,7 +39,29 @@ class _HomeState extends State<Home> {
         () => context.read<PopularTvShowBloc>().add(FetchPopularTvShows()));
     Future.microtask(
         () => context.read<TopRatedTvShowBloc>().add(FetchTopRatedTvShows()));
+
+    controller = new TabController(vsync: this, length: pages.length);
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
+  final pages = [HomeMoviePage(), HomeTvShowPage()];
+
+  final tabs = [
+    Tab(
+      // icon: Icon(Icons.movie_creation_outlined),
+      text: 'Movies',
+    ),
+    Tab(
+      // icon: Icon(Icons.tv),
+      text: "Tv Show",
+    ),
+  ];
 
   final _bottomNavigationItems = const [
     BottomNavigationBarItem(icon: Icon(Icons.movie), label: "Movie"),
@@ -55,12 +77,7 @@ class _HomeState extends State<Home> {
       key: _scaffoldkey,
       drawer: _buildMyDrawer(),
       appBar: _buildMyAppBar(),
-      body: widget._currentIndex == 0 ? HomeMoviePage() : HomeTvShowPage(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: widget._currentIndex,
-        onTap: _changeSelectedNavBar,
-        items: _bottomNavigationItems,
-      ),
+      body: TabBarView(controller: controller, children: pages),
     );
   }
 
@@ -72,10 +89,12 @@ class _HomeState extends State<Home> {
           },
           icon: const Icon(Icons.menu)),
       title: const Text('Saeflix'),
+      bottom: TabBar(controller: controller, tabs: tabs),
       actions: [
         IconButton(
           onPressed: () {
             // FirebaseCrashlytics.instance.crash();
+            widget._currentIndex = controller.index;
             var route = widget._currentIndex == 0
                 ? MovieSearchPage.ROUTE_NAME
                 : TvShowSearchPage.ROUTE_NAME;

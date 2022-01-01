@@ -48,14 +48,18 @@ class TvShowSearchPage extends StatelessWidget {
                 } else if (state is SearchTvShowHasData) {
                   final result = state.results;
                   return Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        final tvshow = result[index];
-                        return TvShowCard(tvshow);
-                      },
-                      itemCount: result.length,
-                    ),
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 150,
+                                childAspectRatio: 3 / 5,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 8),
+                        itemCount: state.results.length,
+                        itemBuilder: (context, index) {
+                          final tvShow = state.results[index];
+                          return TvShowCard(tvShow);
+                        }),
                   );
                 } else if (state is SearchTvShowError) {
                   return Center(child: Text(state.message));

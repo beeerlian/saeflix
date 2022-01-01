@@ -13,9 +13,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movies Watchlist'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Movies Watchlist'),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<AllWatchlistMoviesBloc, WatchlistMoviesState>(
@@ -25,13 +25,17 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (state is WatchlistMoviesLoaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = state.movies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: state.movies.length,
-              );
+              return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      childAspectRatio: 3 / 5,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8),
+                  itemCount: state.movies.length,
+                  itemBuilder: (context, index) {
+                    final tvShow = state.movies[index];
+                    return MovieCard(tvShow);
+                  });
             } else if (state is WatchlistMoviesFailed) {
               return Center(
                 key: const Key('error_message'),

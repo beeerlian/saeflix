@@ -12,13 +12,28 @@ class WatchlistPage extends StatefulWidget {
   _WatchlistPageState createState() => _WatchlistPageState();
 }
 
-class _WatchlistPageState extends State<WatchlistPage> {
+class _WatchlistPageState extends State<WatchlistPage>
+    with SingleTickerProviderStateMixin {
   late PageController _pageController;
   int _currentIndex = 0;
+  late TabController controller;
 
   final _listBottomItem = [
     BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Movie'),
     BottomNavigationBarItem(icon: Icon(Icons.tv), label: 'TvShow')
+  ];
+
+  final pages = [HomeMoviePage(), HomeTvShowPage()];
+
+  final tabs = [
+    Tab(
+      // icon: Icon(Icons.movie_creation_outlined),
+      text: 'Movies',
+    ),
+    Tab(
+      // icon: Icon(Icons.tv),
+      text: "Tv Show",
+    ),
   ];
 
   @override
@@ -31,20 +46,24 @@ class _WatchlistPageState extends State<WatchlistPage> {
         .add(FetchAllWatchlistTvShows()));
     _pageController =
         PageController(initialPage: _currentIndex, keepPage: true);
+    controller = TabController(vsync: this, length: pages.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: pageChanged,
+      appBar: _buildMyAppBar(),
+      body: TabBarView(
+        controller: controller,
         children: [WatchlistMoviesPage(), WatchlistTvShowsPage()],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: bottomTapped,
-          items: _listBottomItem),
+    );
+  }
+
+  AppBar _buildMyAppBar() {
+    return AppBar(
+      title: const Text('Your Watchlist'),
+      bottom: TabBar(controller: controller, tabs: tabs),
     );
   }
 
