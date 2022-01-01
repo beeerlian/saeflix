@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "466162733375",
+    "project_id": "saeflix-5db4e",
+    "storage_bucket": "saeflix-5db4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466162733375:android:b0c9218f7ea2a4aa4f838a",
+        "android_client_info": {
+          "package_name": "com.beeerlian.saeflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466162733375-lv49ij1rcgq77ue0v8t1kk2lqm0qac2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfcCgqzPYriKrPYotDhQoRkxd-YTNeXuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466162733375-lv49ij1rcgq77ue0v8t1kk2lqm0qac2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
