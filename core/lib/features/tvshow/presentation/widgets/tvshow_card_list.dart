@@ -21,6 +21,7 @@ class TvShowCard extends StatelessWidget {
           );
         },
         child: Container(
+          color: Colors.black,
           child: Stack(
             children: [
               ClipRRect(

@@ -24,72 +24,61 @@ class _HomeTvShowPageState extends State<HomeTvShowPage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: RefreshIndicator(
-        onRefresh: () async {
-          Future.microtask(() => context
-              .read<NowPlayingTvShowBloc>()
-              .add(FetchNowPlayingTvShows()));
-          Future.microtask(() =>
-              context.read<PopularTvShowBloc>().add(FetchPopularTvShows()));
-          Future.microtask(() =>
-              context.read<TopRatedTvShowBloc>().add(FetchTopRatedTvShows()));
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
-              ),
-              BlocBuilder<NowPlayingTvShowBloc, TvShowListState>(
-                  builder: (context, state) {
-                if (state is NowPlayingTvShowListLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is NowPlayingTvShowListLoaded) {
-                  return TvShowList(state.tvShows);
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Popular',
-                onTap: () =>
-                    Navigator.pushNamed(context, PopularTvShowsPage.ROUTE_NAME),
-              ),
-              BlocBuilder<TopRatedTvShowBloc, TvShowListState>(
-                  builder: (context, state) {
-                if (state is TopRatedTvShowListLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is TopRatedTvShowListLoaded) {
-                  return TvShowList(state.tvShows);
-                } else {
-                  return Text('Failed');
-                }
-              }),
-              _buildSubHeading(
-                title: 'Top Rated',
-                onTap: () => Navigator.pushNamed(
-                    context, TopRatedTvShowsPage.ROUTE_NAME),
-              ),
-              BlocBuilder<PopularTvShowBloc, TvShowListState>(
-                  builder: (context, state) {
-                if (state is PopularTvShowListLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state is PopularTvShowListLoaded) {
-                  return TvShowList(state.tvShows);
-                } else {
-                  return const Text('Failed');
-                }
-              }),
-            ],
-          ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Now Playing',
+              style: kHeading6,
+            ),
+            BlocBuilder<NowPlayingTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is NowPlayingTvShowListLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is NowPlayingTvShowListLoaded) {
+                return TvShowList(state.tvShows);
+              } else {
+                return Text('Failed');
+              }
+            }),
+            _buildSubHeading(
+              title: 'Popular',
+              onTap: () =>
+                  Navigator.pushNamed(context, PopularTvShowsPage.ROUTE_NAME),
+            ),
+            BlocBuilder<TopRatedTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is TopRatedTvShowListLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is TopRatedTvShowListLoaded) {
+                return TvShowList(state.tvShows);
+              } else {
+                return Text('Failed');
+              }
+            }),
+            _buildSubHeading(
+              title: 'Top Rated',
+              onTap: () =>
+                  Navigator.pushNamed(context, TopRatedTvShowsPage.ROUTE_NAME),
+            ),
+            BlocBuilder<PopularTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is PopularTvShowListLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is PopularTvShowListLoaded) {
+                return TvShowList(state.tvShows);
+              } else {
+                return const Text('Failed');
+              }
+            }),
+          ],
         ),
       ),
     );

@@ -92,6 +92,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       bottom: TabBar(controller: controller, tabs: tabs),
       actions: [
         IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
+            },
+            icon: Icon(Icons.save_alt_outlined)),
+        IconButton(
           onPressed: () {
             // FirebaseCrashlytics.instance.crash();
             widget._currentIndex = controller.index;
@@ -118,13 +123,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             accountName: Text('Saeflix'),
             accountEmail: Text('naufal.berlian.99@gmail.com'),
           ),
-          ListTile(
-            leading: const Icon(Icons.movie),
-            title: const Text('Movies'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.movie),
+          //   title: const Text('Movies'),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //   },
+          // ),
           ListTile(
             leading: const Icon(Icons.save_alt),
             title: const Text('Watchlist'),

@@ -38,10 +38,10 @@ class _CustomDrawerState extends State<CustomDrawer>
             accountName: Text('Saeflix'),
             accountEmail: Text('saeflix@saeflix.com'),
           ),
-          const ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Movies'),
-          ),
+          // const ListTile(
+          //   leading: Icon(Icons.movie),
+          //   title: Text('Movies'),
+          // ),
           ListTile(
             leading: const Icon(Icons.save_alt),
             title: const Text('Watchlist'),
